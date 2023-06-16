@@ -1,8 +1,8 @@
 import importlib
 
 from django.conf import settings
-from django.core.management import call_command
 from django.test import Client
+from django.core.management import call_command
 
 # SQLAlchemy
 from sqlalchemy_utils import drop_database, create_database, database_exists
@@ -14,11 +14,10 @@ from lamb.db.session import metadata, lamb_db_session_maker
 
 import pytest
 
-from api.models import AbstractUser, SuperAdmin, UserType
+# Project
+from api.models import SuperAdmin, AbstractUser
 
 from .factories import *
-from .factories import AbstractUserFactory
-from .factories import OperatorFactory
 
 
 @pytest.fixture(autouse=True)

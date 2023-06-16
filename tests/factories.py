@@ -1,5 +1,5 @@
-import logging
 import string
+import logging
 
 import factory
 from factory.fuzzy import FuzzyText
@@ -7,7 +7,7 @@ from factory.fuzzy import FuzzyText
 # Project
 from api.models import *
 
-__all__ = ["AlchemyModelFactory", "SuperAdminFactory"]
+__all__ = ["AlchemyModelFactory", "SuperAdminFactory", "OperatorFactory"]
 
 logger = logging.getLogger(__name__)
 

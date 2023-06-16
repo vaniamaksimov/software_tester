@@ -1,12 +1,13 @@
-import pytest
-
 # SQLAlchemy
 from sqlalchemy.orm.session import Session
 
+# Lamb Framework
 from lamb.exc import AuthCredentialsInvalid
 
+import pytest
+
 # Project
-from api.models import RefreshToken, SuperAdmin
+from api.models import SuperAdmin, RefreshToken
 from api.auth.auth_engines.email import EmailAuthEngine
 
 

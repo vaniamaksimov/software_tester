@@ -1,5 +1,5 @@
-from datetime import datetime, timedelta
 from http import HTTPStatus
+from datetime import datetime, timedelta
 
 from django.apps import apps
 from django.urls import reverse
@@ -10,8 +10,7 @@ from freezegun import freeze_time
 
 # Project
 from api.utils import get_handbooks_values
-from api.models import AbstractUser, Operator, SettingsValue, SuperAdmin, handbook_map
-
+from api.models import SuperAdmin, AbstractUser, SettingsValue, handbook_map
 
 
 def test_ping(client: Client):
