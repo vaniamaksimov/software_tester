@@ -1,4 +1,5 @@
 import logging
+import string
 
 import factory
 from factory.fuzzy import FuzzyText
@@ -33,11 +34,18 @@ class AlchemyModelFactory(factory.alchemy.SQLAlchemyModelFactory):
 
 
 class AbstractUserFactory(AlchemyModelFactory):
-    email = FuzzyText(prefix="email@", length=20, suffix="example.com")
+    email = FuzzyText(prefix="email@", length=20, suffix="example.com", chars=string.ascii_lowercase)
     first_name = factory.Faker("first_name")
     last_name = factory.Faker("last_name")
+    is_email_confirmed = True
+    is_confirmed = True
 
 
 class SuperAdminFactory(AbstractUserFactory):
     class Meta:
         model = SuperAdmin
+
+
+class OperatorFactory(AbstractUserFactory):
+    class Meta:
+        model = Operator

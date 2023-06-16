@@ -1,11 +1,12 @@
-import uuid
 import importlib
 
 from django.conf import settings
 from django.core.management import call_command
+from django.test import Client
 
 # SQLAlchemy
 from sqlalchemy_utils import drop_database, create_database, database_exists
+from sqlalchemy.orm.session import Session
 
 # Lamb Framework
 import lamb.db.session
@@ -13,11 +14,15 @@ from lamb.db.session import metadata, lamb_db_session_maker
 
 import pytest
 
+from api.models import AbstractUser, SuperAdmin, UserType
+
 from .factories import *
+from .factories import AbstractUserFactory
+from .factories import OperatorFactory
 
 
-@pytest.fixture
-def db():
+@pytest.fixture(autouse=True)
+def db() -> Session:
     settings.DATABASES["default"]["NAME"] = "test_core"
     importlib.reload(lamb.db.session)
     session = lamb_db_session_maker()
@@ -40,3 +45,23 @@ def db():
     yield session
     session.rollback()
     drop_database(db_url)
+
+
+@pytest.fixture
+def client() -> Client:
+    return Client()
+
+
+@pytest.fixture
+def admin_user(db: Session) -> SuperAdmin:
+    admin_user = db.query(AbstractUser).filter(AbstractUser.email == 'super_admin@example.com').first()
+    return admin_user
+
+
+@pytest.fixture
+def another_user(db: Session) -> AbstractUser:
+    user: AbstractUser = OperatorFactory.create()
+    user.set_password('AnotherVeryStrongPassword')
+    db.add(user)
+    db.commit()
+    return user

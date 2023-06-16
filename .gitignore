@@ -11,3 +11,12 @@ configs/celery.conf
 
 log/*
 !log/.gitkeep
+
+#VSCodeStuff
+.vscode
+
+#Python stuff
+venv
+
+#DB Stuff
+volumes
